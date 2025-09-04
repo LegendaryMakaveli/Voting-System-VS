@@ -70,21 +70,25 @@ public static String getCandidateParty(String candidateParty, String candidateNa
 
 
 public static String votingProcess(String votersAnswer) {
-        if (votersAnswer.equalsIgnoreCase("APC")) {
-            apc++;
-        } else if (votersAnswer.equalsIgnoreCase("PDP")) {
-            pdp++;
-        } else if (votersAnswer.equalsIgnoreCase("ADP")) {
-            adp++;
-        } else if (votersAnswer.equalsIgnoreCase("ADC")) {
-            adc++;
-        } else if (votersAnswer.equalsIgnoreCase("LP")) {
-            lp++;
-        } else {
-            System.out.println("Who you wan vote for nur contest!!!");
-        }
-        return "Done";
+    if (votersAnswer.equalsIgnoreCase("APC")) {
+        apc++;
+        return "You voted for " + apcCandidate + " (APC)";
+    } else if (votersAnswer.equalsIgnoreCase("PDP")) {
+        pdp++;
+        return "You voted for " + pdpCandidate + " (PDP)";
+    } else if (votersAnswer.equalsIgnoreCase("ADP")) {
+        adp++;
+        return "You voted for " + adpCandidate + " (ADP)";
+    } else if (votersAnswer.equalsIgnoreCase("ADC")) {
+        adc++;
+        return "You voted for " + adcCandidate + " (ADC)";
+    } else if (votersAnswer.equalsIgnoreCase("LP")) {
+        lp++;
+        return "You voted for " + lpCandidate + " (LP)";
+    } else {
+        return "Who you wan vote for nur contest!!!";
     }
+}
 
 
 
@@ -176,14 +180,23 @@ return "Everywhere good";
 
 
 public static String displayResult(){
+    if (apcCandidate != null) {
+        System.out.println(apcCandidate + " (APC) got " + apc + " votes");
+    }
+    if (pdpCandidate != null) {
+        System.out.println(pdpCandidate + " (PDP) got " + pdp + " votes");
+    }
+    if (adpCandidate != null) {
+        System.out.println(adpCandidate + " (ADP) got " + adp + " votes");
+    }
+    if (adcCandidate != null) {
+        System.out.println(adcCandidate + " (ADC) got " + adc + " votes");
+    }
+    if (lpCandidate != null) {
+        System.out.println(lpCandidate + " (LP) got " + lp + " votes");
+    }
 
-System.out.println(apcCandidate + " " + "get" + " " + apc + " " + "votes");
-System.out.println(pdpCandidate + " " + "get" + " " + pdp + " " + "votes");
-System.out.println(adpCandidate + " " + "get" + " " + adp + " " + "votes");
-System.out.println(adcCandidate + " " + "get" + " " + adc + " " + "votes");
-System.out.println(lpCandidate + " " + "get" + " " + lp + " " + "votes");
-
-return "You self go don know winner nah....But as eyeNeck nur be you go tell me wetin i go do";
+    return "You self go don know winner nah....But as eyeNeck nur be you go tell me wetin i go do";
 }
 
 
@@ -220,7 +233,7 @@ long timeSpentInHr =currentStopHour  - currentStartHour;
 long timeSpentInMinute = currentStopMinute  - currentStartMinute;
 long timeSpentInSeconds = currentStopSecond - currentStartSecond;
 
-System.out.println("Total time spent on the election is: " + timeSpentInHr + "hrs" + " " + timeSpentInMinute + "mins" + " " + timeSpentInSeconds + "secs");
+System.out.println("Total time spent during the election is: " + timeSpentInHr + "hrs" + " " + timeSpentInMinute + "mins" + " " + timeSpentInSeconds + "secs");
 
 }
 
@@ -270,11 +283,11 @@ return "Age saved succesfully";
 public static String castVote(String votersAnswer) {
 	System.out.print("Pls cast your vote?:   ");
 	 votersAnswer = input.next().toUpperCase();
-	if(!votersAnswer.equalsIgnoreCase("APC") || !votersAnswer.equalsIgnoreCase("PDP") || !votersAnswer.equalsIgnoreCase("ADP") || !votersAnswer.equalsIgnoreCase("ADC") || !votersAnswer.equalsIgnoreCase("LP")) {
+	if(!votersAnswer.equalsIgnoreCase("APC") && !votersAnswer.equalsIgnoreCase("PDP") && !votersAnswer.equalsIgnoreCase("ADP") && !votersAnswer.equalsIgnoreCase("ADC") && !votersAnswer.equalsIgnoreCase("LP")) {
 		System.out.println("Cofirm your choice again..(APC, PDP, ADP, ADC, LP)?:   ");
 		votersAnswer = input.next().toUpperCase();
 	}
-return "Vote counted";
+return votersAnswer;
 }
 
 
@@ -312,13 +325,14 @@ Vote wisely......
 public static void main(String... makaveli) {
 
     String doYouwantToQuit = "YES";
-
+getStartTime();
     while (!doYouwantToQuit.equalsIgnoreCase("NO")) {
         System.out.println("Press C to register a candidate or V to register a voter or NO to Quit?");
         String answer = input.next().toUpperCase();
 
         if (answer.equalsIgnoreCase("C")) {
             System.out.println(validateCandidate());
+	    System.out.println();
             System.out.println(GetLocalGovernment());
             System.out.println(getCardNumber());
             System.out.println(getNames("")); 
@@ -338,7 +352,7 @@ public static void main(String... makaveli) {
 
             displayMenu();
             String votersAnswer = castVote(""); 
-            votingProcess(votersAnswer);
+            System.out.println(votingProcess(votersAnswer));
             displayWaiting();
 
         } else if (answer.equalsIgnoreCase("NO")) {
@@ -358,5 +372,8 @@ public static void main(String... makaveli) {
 
     System.out.println();
     System.out.println(getElectionResult());
+
+System.out.println();
+displayStopTime();
 }
 }
